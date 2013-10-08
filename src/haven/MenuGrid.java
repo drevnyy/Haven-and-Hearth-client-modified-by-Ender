@@ -341,7 +341,9 @@ public class MenuGrid extends Widget {
 	    ui.slen.error(str);
 	    Config.saveOptions();
 	} else if(list[1].equals("study")) {
-	    ui.study.toggle();
+	    ui.FM.toggle();
+		ui.study.toggle();
+		
 	} else if(list[1].equals("globalchat")) {
 	    IRChatHW.open();
 	} else if(list[1].equals("wiki")) {

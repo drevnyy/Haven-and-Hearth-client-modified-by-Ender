@@ -27,6 +27,7 @@
 package haven;
 
 import haven.CharWnd.Study;
+import haven.CharWnd.FoodMeter;
 
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -44,6 +45,7 @@ public class UI {
     public MenuGrid mnu;
     public Speedget spd;
     public Study study;
+	public FoodMeter FM;
     public WikiBrowser wiki;
     private Widget keygrab, mousegrab;
     public Map<Integer, Widget> widgets = new TreeMap<Integer, Widget>();
@@ -59,6 +61,8 @@ public class UI {
     public FSMan fsm;
     public Console cons = new WidgetConsole();
     private Collection<AfterDraw> afterdraws = null;
+	
+	public static FlowerMenu flowerMenu = null; //new
 	
     public interface Receiver {
 	public void rcvmsg(int widget, String msg, Object... args);
@@ -179,11 +183,32 @@ public class UI {
 	    wdg.binded();
 	    if(wdg instanceof MapView)
 		mainview = (MapView)wdg;
+		createWidget(wdg);// new
 	}
     }
 	
-    public void grabmouse(Widget wdg) {
-	mousegrab = wdg;
+	private void createWidget(Widget wdg){// new
+		if ((wdg instanceof FlowerMenu))
+			flowerMenu = (FlowerMenu)wdg;
+	}
+	
+	private void destroyWidget(Widget wdg){// new
+		if ((wdg instanceof FlowerMenu))
+			flowerMenu = null;
+	}
+	
+    public void grabmouse(Widget wdg) { // new
+		if(wdg == null){
+			for(Widget w = root.child; w != null; w = w.next){
+				if(w instanceof Item){
+					mousegrab = w;
+					return;
+				}
+			}
+			mousegrab = wdg;
+		}else{
+			mousegrab = wdg;
+		}
     }
 	
     public void grabkeys(Widget wdg) {
@@ -193,6 +218,7 @@ public class UI {
     private void removeid(Widget wdg) {
 	if(rwidgets.containsKey(wdg)) {
 	    int id = rwidgets.get(wdg);
+		destroyWidget(wdg); // new
 	    widgets.remove(id);
 	    rwidgets.remove(wdg);
 	}
@@ -297,47 +323,70 @@ public class UI {
 	}
 	return(false);
     }
-
-    public void mousedown(MouseEvent ev, Coord c, int button) {
-	setmods(ev);
-	lcc = mc = c;
-	if(mousegrab == null)
-	    root.mousedown(c, button);
-	else
-	    mousegrab.mousedown(wdgxlate(c, mousegrab), button);
+	
+	Widget temp = null; // new
+	
+    public void mousedown(MouseEvent ev, Coord c, int button) { // new
+		setmods(ev);
+		lcc = mc = c;
+		
+		if(mousegrab == null){
+			root.mousedown(c, button);
+		}else if(modflags() == 5 && mousegrab instanceof Item){
+			temp = mousegrab;
+			mousegrab.hide();
+			mousegrab = null;
+			
+			root.mousedown(c, button);
+		}else{
+			mousegrab.mousedown(wdgxlate(c, mousegrab), button);
+		}
     }
 	
-    public void mouseup(MouseEvent ev, Coord c, int button) {
-	setmods(ev);
-	mc = c;
-	if(mousegrab == null)
-	    root.mouseup(c, button);
-	else
-	    mousegrab.mouseup(wdgxlate(c, mousegrab), button);
+    public void mouseup(MouseEvent ev, Coord c, int button) { // new
+		setmods(ev);
+		mc = c;
+		
+		if(temp != null){
+			root.mouseup(c, button);
+			mousegrab = temp;
+			temp = null;
+			mousegrab.show();
+		}else if(mousegrab == null){
+			root.mouseup(c, button);
+		}else{
+			mousegrab.mouseup(wdgxlate(c, mousegrab), button);
+		}
     }
 	
     public void mousemove(MouseEvent ev, Coord c) {
-	setmods(ev);
-	mc = c;
-	if(mousegrab == null)
-	    root.mousemove(c);
-	else
-	    mousegrab.mousemove(wdgxlate(c, mousegrab));
+		setmods(ev);
+		mc = c;
+		if(mousegrab == null){
+			root.mousemove(c);
+		}else{
+			mousegrab.mousemove(wdgxlate(c, mousegrab));
+			root.mousemove(c); // new
+		}
     }
 	
     public void mousewheel(MouseEvent ev, Coord c, int amount) {
-	setmods(ev);
-	lcc = mc = c;
-	if(mousegrab == null)
-	    root.mousewheel(c, amount);
-	else
-	    mousegrab.mousewheel(wdgxlate(c, mousegrab), amount);
+		setmods(ev);
+		lcc = mc = c;
+		//if(mousegrab == null)  // new
+			root.mousewheel(c, amount);
+		//else // new
+			//mousegrab.mousewheel(wdgxlate(c, mousegrab), amount);
     }
     
-    public int modflags() {
-	return((modshift?1:0) |
-	       (modctrl?2:0) |
-	       (modmeta?4:0) |
-	       (modsuper?8:0));
+    public int modflags() { // new
+		int num;
+	
+		num = ((modshift?1:0) |
+				(modctrl?2:0) |
+				(modmeta?4:0) |
+				(modsuper?8:0));
+		
+		return num;
     }
 }

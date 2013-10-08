@@ -94,7 +94,16 @@ public class RootWidget extends ConsoleHost {
 		Config.grid = !Config.grid;
 	    } else if((code == KeyEvent.VK_G)&&alt) {
 		IRChatHW.open();
-	    } else if(((int)key == 2)&ctrl) {//CTRL-B have code of 02
+		} else if((code == KeyEvent.VK_A)&&ctrl) { //new
+		Config.pathFinder = !Config.pathFinder;
+		String str = "Pathfinder "+((Config.pathFinder)?"ON":"OFF");
+		ui.cons.out.println(str);
+		ui.slen.error(str);
+		
+		/*if(!Config.pathFinder){
+			ui.mainview.walker.forceStopPF = true;
+		}*/
+		}else if(((int)key == 2)&ctrl) {//CTRL-B have code of 02
 		BuddyWnd.instance.visible = !BuddyWnd.instance.visible;
 	    } else if(((int)key == 20)&ctrl) {//CTRL-T have code of 20
 		CharWnd.instance.toggle();

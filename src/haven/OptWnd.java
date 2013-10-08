@@ -236,6 +236,34 @@ public class OptWnd extends Window {
 		}
 	    }).a = Config.showothergobpath;
 		
+		(new CheckBox(new Coord(370, 305), tab, "Pathfinder") { // new
+		public void changed(boolean val) {
+		    Config.pathFinder = val;
+		    Config.saveOptions();
+		}
+	    }).a = Config.pathFinder;
+		
+		(new CheckBox(new Coord(370, 340), tab, "Broadleaf tile fix") { // new
+		public void changed(boolean val) {
+		    Config.broadleafTile = val;
+		    Config.saveOptions();
+		}
+	    }).a = Config.broadleafTile;
+		
+		(new CheckBox(new Coord(370, 375), tab, "Open in maximised window") { // new
+		public void changed(boolean val) {
+		    Config.maxWindow = val;
+		    Config.saveOptions();
+		}
+	    }).a = Config.maxWindow;
+		
+		(new CheckBox(new Coord(370, 410), tab, "Edged tiles") { // new
+		public void changed(boolean val) {
+		    Config.edgedTiles = val;
+		    Config.saveOptions();
+		}
+	    }).a = Config.edgedTiles;
+		
 	    (new CheckBox(new Coord(440, 130), tab, "Auto-hearth") {
 		public void changed(boolean val) {
 		    Config.autohearth = val;
@@ -507,6 +535,7 @@ public class OptWnd extends Window {
 		}
 	    };
 	    chkbox.a = Config.dontScaleMMIcons;
+		
 	    chkbox = new CheckBox(new Coord(150, 60), tab, "Show view distance") {
 		public void changed(boolean val) {
 		    Config.showViewDistance = val;
@@ -514,6 +543,22 @@ public class OptWnd extends Window {
 		}
 	    };
 	    chkbox.a = Config.showViewDistance;
+		
+		chkbox = new CheckBox(new Coord(150, 90), tab, "Pathfinder Lines") { // new
+		public void changed(boolean val) {
+		    Config.pathfinderLines = val;
+		    Config.saveOptions();
+		}
+	    };
+	    chkbox.a = Config.pathfinderLines;
+		
+		chkbox = new CheckBox(new Coord(150, 120), tab, "Pathfinder Hitboxes") { // new
+		public void changed(boolean val) {
+		    Config.pathfinderHitboxes = val;
+		    Config.saveOptions();
+		}
+	    };
+	    chkbox.a = Config.pathfinderHitboxes;
 	}
 
 	new Frame(new Coord(-10, 20), new Coord(550, 430), this);

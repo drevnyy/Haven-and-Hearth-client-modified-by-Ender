@@ -48,9 +48,11 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import pathfinder.mainPF;
+
 @SuppressWarnings("serial")
 public class MainFrame extends Frame implements Runnable, FSMan {
-    public static String VERSION = "02.04.12";
+    public static String VERSION = "07.10.13 feat, Xcom and Aghmed";
     private static final String TITLE = String.format("Haven and Hearth (modified by Ender v%s)", VERSION);
     HavenPanel p;
     ThreadGroup g;
@@ -168,7 +170,13 @@ public class MainFrame extends Frame implements Runnable, FSMan {
 	seticon();
 	setVisible(true);
 	p.init();
-	setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
+	
+	if(Config.maxWindow){ // new
+		setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
+	}
+	
+	new mainPF(p);
+	
     }
 
     public static Coord getScreenSize() {

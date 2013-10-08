@@ -117,7 +117,7 @@ public class Gob implements Sprite.Owner {
 	    Overlay ol = i.next();
 	    if(ol.spr == null) {
 		if(((getattr(Drawable.class) == null) || (getneg() != null)) && (ol.res.get() != null)){
-		    //checkol(ol);
+		    checkol(ol);		    
 		    ol.spr = Sprite.create(this, ol.res.get(), ol.sdt);
 		}
 	    } else {
@@ -383,4 +383,43 @@ public class Gob implements Sprite.Owner {
 	}
 	return(null);
     }
+	
+	public boolean checkCarry() {
+		for(String name : resnames()){
+			if(name.contains("/banzai/")){
+			return true;
+			}
+		}
+		return false;
+    }
+	
+	public boolean checkWalking() {
+		for(String name : resnames()){
+			if(name.contains("/walking/")){
+			return true;
+			}
+		}
+		return false;
+    }
+	
+	public boolean checkSitting() {
+		for(String name : resnames()){
+			if(name.contains("/sitting/")){
+			return true;
+			}
+		}
+		return false;
+    }
+	
+	public byte GetBlob(int index){
+		Drawable d = (Drawable)getattr(Drawable.class);
+		ResDrawable dw = (ResDrawable)getattr(ResDrawable.class);
+		
+		if ((dw != null) && (d != null)){
+			if ((index < dw.sdt.blob.length) && (index >= 0))
+			return dw.sdt.blob[index];
+		}
+		
+		return 0;
+	}
 }

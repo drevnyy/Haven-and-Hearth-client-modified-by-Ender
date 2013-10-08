@@ -223,6 +223,23 @@ public class FlowerMenu extends Widget {
 	super.draw(g);
     }
     
+	public boolean checkFlower(String str){// new
+		for (int i = 0; i < this.opts.length; i++)
+			if (this.opts[i].name.contains(str))
+				return true;
+		return false;
+	}
+	public int checkFlowerSize(){// new
+		return(this.opts.length);
+
+	}
+	public void SelectOptint(int index){ // new
+		if(index< this.opts.length){
+				wdgmsg(this, "cl", new Object[] { Integer.valueOf(this.opts[index].num) });
+				
+			}
+		}
+	
     public boolean type(char key, java.awt.event.KeyEvent ev) {
 	if((key >= '0') && (key <= '9')) {
 	    int opt = (key == '0')?10:(key - '1');

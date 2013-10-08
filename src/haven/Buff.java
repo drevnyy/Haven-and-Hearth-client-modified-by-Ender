@@ -31,7 +31,7 @@ import java.awt.Color;
 public class Buff {
     public static final Text.Foundry nfnd = new Text.Foundry("SansSerif", 10);
     int id;
-    Indir<Resource> res;
+    public Indir<Resource> res;
     String tt = null;
     int ameter = -1;
     int nmeter = -1;

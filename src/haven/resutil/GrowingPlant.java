@@ -42,6 +42,7 @@ public class GrowingPlant extends CSprite {
 	public Tex[][] strands;
 	public int num;
 	public Resource.Neg neg;
+	Coord bc = new Coord(-5,-5);
 	
 	public Factory(int stages, int variants, int num, boolean rev) {
 	    Resource res = Utils.myres(this.getClass());
@@ -74,9 +75,11 @@ public class GrowingPlant extends CSprite {
 	    for(int i = 0; i < n; i++) {
 		Coord c;
 		if(Config.simple_plants){
-		    c = neg.bc.add(neg.bs).sub(5, 5);
+		    //c = neg.bc.add(neg.bs).sub(5, 5);
+			c = Coord.z; // new
 		} else {
-		    c = new Coord(rnd.nextInt(neg.bs.x), rnd.nextInt(neg.bs.y)).add(neg.bc);
+		    //c = new Coord(rnd.nextInt(neg.bs.x), rnd.nextInt(neg.bs.y)).add(neg.bc);
+			c = new Coord(rnd.nextInt(11), rnd.nextInt(11)).add(bc); // new
 		}
 		Tex s = strands[m][rnd.nextInt(strands[m].length)];
 		spr.add(s, 0, MapView.m2s(c), new Coord(s.sz().x / 2, s.sz().y).inv());

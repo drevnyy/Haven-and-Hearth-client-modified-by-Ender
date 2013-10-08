@@ -47,7 +47,7 @@ public class MCache {
     Tileset[] sets = null;
     Grid last = null;
     java.util.Map<Coord, Grid> req = new TreeMap<Coord, Grid>();
-    java.util.Map<Coord, Grid> grids = new TreeMap<Coord, Grid>();
+    public java.util.Map<Coord, Grid> grids = new TreeMap<Coord, Grid>();
     Session sess;
     Set<Overlay> ols = new HashSet<Overlay>();
     public static final Coord tilesz = new Coord(11, 11);
@@ -511,6 +511,12 @@ public class MCache {
 	    int id = msg.uint8();
 	    String resnm = msg.string();
 	    int resver = msg.uint16();
+		
+		if(id == 11 && Config.broadleafTile){ // new
+			resnm = "gfx/tiles/wald/leaf";
+			resver = 6;
+		}
+		
 	    sets[id] = loadset(resnm, resver);
 	}
     }

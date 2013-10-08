@@ -439,7 +439,25 @@ public class Item extends Widget implements DTarget {
 	}
     }
 	
+	
+	public String GetResName(){ // new
+		if (this.res.get() != null) {
+			return ((Resource)this.res.get()).name;
+		}
+		return "";
+	}
+	
+	void sortedSkoop(){ // new
+		String name = GetResName();
+		if(parent instanceof Inventory ) ((Inventory)parent).skoopItems(name);
+	}
+	
     public boolean mousedown(Coord c, int button) {
+	if(button == 3 && ui.modflags() == 4){ // new
+		sortedSkoop();
+		return(true);
+	}
+	
 	if(!dm) {
 	    if(button == 1) {
 		if(ui.modshift)
