@@ -297,13 +297,14 @@ public class PathFinder{
 			{
 				//if(tooClose(Current,rect,true))
 				//{
-				if(rect.x+rect.width<Current.x+Current.width)
+				if(rect.x+rect.width<=Current.x+Current.width)
 					size=Current.width;
 				else
 					size=rect.x+rect.width-Current.x;
-					rect.setBounds(Current.x, Current.y,size,rect.height);
-					merged.remove(Current);
-					Current=rect;
+					
+					Current.setBounds(Current.x, Current.y,size,Current.height);
+					merged.remove(rect);
+					rect=Current;
 					combine=true;
 					if(i>0)i--;
 				//}
@@ -311,14 +312,15 @@ public class PathFinder{
 			else if(Current!=rect && Current.x==rect.x && Current.width==rect.width && Current.y<=rect.y && Current.y+Current.height>rect.y)
 			{
 				
-				if(rect.y+rect.height<Current.y+Current.height)
+				if(rect.y+rect.height<=Current.y+Current.height)
 					size=Current.height;
 				else
 					size=rect.y+rect.height-Current.y;
 					
-					rect.setBounds(Current.x, Current.y,rect.width,size);
-					merged.remove(Current);
-					Current=rect;
+					
+					Current.setBounds(Current.x, Current.y,rect.width,size);
+					merged.remove(rect);
+					rect=Current;
 					combine=true;
 					if(i>0)i--;
 				
