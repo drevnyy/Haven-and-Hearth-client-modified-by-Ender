@@ -302,13 +302,17 @@ public class PathWalker extends Thread{
 					if(pf.see(pathCoord.get(j),pathCoord.get(j+2),merged))
 					{
 						pathCoord.remove(j+1);
+						if(j<i-1) i--;
 						changed=true;
 						if(forceStopPF){return true;}
 					}
 				}
+				while(i>=pathCoord.size())i--;
+				if(i<0) return false;
 				
 				if(changed)
 				{
+					c = pathCoord.get(i);
 					m_util.clickWorld(1,c);
 					changed=false;
 				}
