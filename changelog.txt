@@ -1,10 +1,4 @@
 ï»¿Change log
-
-07.10.13
- * Final version of pathfinder added.
- * Client now much more stable.
- * Added broadleaf tile fix.
- * Added ugly looking sharpened tile boreders.
  
 02.04.12
  * fix for client hang-up if pressed screenshot on char select screen with hide names and ui are toggled on
@@ -316,9 +310,9 @@
   * now it's possible to change Google API key in options->translate
   
 07.03.11
- * dowsing/prospecting direction message now has ï¿½ symbol next 
+ * dowsing/prospecting direction message now has ° symbol next 
    to numbers, to indicate that this is degrees.
- * changed * to ï¿½ in Unordered List formatting in wiki browser
+ * changed * to • in Unordered List formatting in wiki browser
  * added ability to scroll minimap. Just drag map with mouse.
    To center it on player press button with green circle on 
    minimap panel.
